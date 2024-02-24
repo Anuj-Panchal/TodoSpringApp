@@ -1,25 +1,34 @@
 package com.anuj.learnSpringMVC.todo.entity;
 
+import jakarta.persistence.*;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
 
-public class Todo {
+@Entity
+@Table(name = "todo")
+public class TodoEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name = "user_name")
     @Size(min = 1, max = 20, message = "Username should be between 1 and 20 inclusive")
     private String userName;
 
+    @Column(name = "description")
     @Size(min = 1, max = 200, message = "Username should be between 1 and 20 inclusive")
     private String description;
 
+    @Column(name = "target_date", columnDefinition = "DATE")
     @FutureOrPresent
     private LocalDate targetDate;
 
+    @Column(name = "is_done")
     private Boolean isDone;
 
-    public Todo(Integer id, String userName, String description, LocalDate targetDate, Boolean isDone) {
+    public TodoEntity(Integer id, String userName, String description, LocalDate targetDate, Boolean isDone) {
         this.id = id;
         this.userName = userName;
         this.description = description;
@@ -27,14 +36,14 @@ public class Todo {
         this.isDone = isDone;
     }
 
-    public Todo(String userName, String description, LocalDate targetDate, Boolean isDone) {
+    public TodoEntity(String userName, String description, LocalDate targetDate, Boolean isDone) {
         this.userName = userName;
         this.description = description;
         this.targetDate = targetDate;
         this.isDone = isDone;
     }
 
-    public Todo() {
+    public TodoEntity() {
     }
 
     public Integer getId() {
